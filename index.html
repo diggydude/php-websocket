@@ -1,0 +1,96 @@
+<html>
+  <head>
+    <title>WebSocket Client</title>
+    <style type="text/css">
+      html, body {
+        font-family: sans-serif;
+      }
+      #log {
+        width: 440px;
+        height: 200px;
+        border: 1px solid #7F9DB9;
+        overflow: auto;
+      }
+      #msg {
+        width: 330px;
+      }
+    </style>
+    <script type="text/javascript">
+      var socket;
+
+      function init()
+      {
+        try {
+          var host = "ws://127.0.0.1:1222";
+          socket   = new WebSocket(host);
+          with (socket) {
+            onopen    = function(msg)
+                        {
+                          log("Connected!");
+                        };
+            onmessage = function(msg)
+                        {
+                          log("Received: " + msg.data);
+                        };
+            onclose   = function(msg)
+                        {
+                          log("Disconnected!");
+                        };
+          }
+        }
+        catch (ex) {
+          log(ex);
+        }
+        $("msg").focus();
+      } // init
+
+      function send()
+      {
+        try {
+          var msg = $("msg").value;
+          if (msg.length == 0) {
+            alert("Message can not be empty.");
+            return;
+          }
+          $("msg").value = "";
+          $("msg").focus();
+          socket.send(msg);
+        }
+        catch (ex) {
+          log(ex);
+        }
+      } // send
+
+      function quit()
+      {
+        log("Goodbye!");
+        socket.close();
+        socket = null;
+      } // quit
+
+      function $(id)
+      {
+       return document.getElementById(id);
+      } // $
+
+      function log(msg)
+      {
+        $("log").innerHTML += "<br />" + msg;
+      } // log
+
+      function onkey(event)
+      {
+        if (event.keyCode == 13) {
+          send();
+        }
+      } // onkey
+    </script>
+  </head>
+  <body onload="init()">
+    <h3>WebSocket Client</h3>
+    <div id="log"></div>
+    <input id="msg" type="textbox" onkeypress="onkey(event)"/>
+    <button onclick="send()">Send</button>
+    <button onclick="quit()">Quit</button>
+  </body>
+</html>
