@@ -28,7 +28,7 @@
       return true;
     } // send
 
-    protected function receive()
+    public function receive()
     {
 	  $data    = "";
 	  $timeout = microtime(true) + .001;
