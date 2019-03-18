@@ -5,7 +5,10 @@
       html, body {
         font-family: sans-serif;
       }
-      #log {
+      h1 {
+        font-size: 18px;
+      }
+      #viewport {
         width: 440px;
         height: 200px;
         border: 1px solid #7F9DB9;
@@ -26,15 +29,15 @@
           with (socket) {
             onopen    = function(msg)
                         {
-                          log("Connected!");
+                          echo('Connected!');
                         };
             onmessage = function(msg)
                         {
-                          log("Received: " + msg.data);
+                          echo('Server said: ' + msg.data);
                         };
             onclose   = function(msg)
                         {
-                          log("Disconnected!");
+                          echo('Disconnected!');
                         };
           }
         }
@@ -49,7 +52,7 @@
         try {
           var msg = $("msg").value;
           if (msg.length == 0) {
-            alert("Message can not be empty.");
+            echo('Message cannot be empty!');
             return;
           }
           $("msg").value = "";
@@ -63,7 +66,7 @@
 
       function quit()
       {
-        log("Goodbye!");
+        echo('Goodbye!');
         socket.close();
         socket = null;
       } // quit
@@ -73,10 +76,10 @@
         return document.getElementById(id);
       } // $
 
-      function log(msg)
+      function echo(msg)
       {
-        $("log").innerHTML += "<br />" + msg;
-      } // log
+        $('viewport').innerHTML += msg + "<br />";
+      } // echo
 
       function onkey(e)
       {
@@ -87,9 +90,9 @@
     </script>
   </head>
   <body onload="init()">
-    <h3>WebSocket Client</h3>
-    <div id="log"></div>
-    <input id="msg" type="textbox" onkeypress="onkey(event)"/>
+    <h1>WebSocket Client</h1>
+    <div id="viewport"></div>
+    <input id="msg" type="text" onkeypress="onkey(event)"/>
     <button onclick="send()">Send</button>
     <button onclick="quit()">Quit</button>
   </body>
