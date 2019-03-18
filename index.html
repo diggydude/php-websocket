@@ -42,25 +42,26 @@
           }
         }
         catch (e) {
-          log(e);
+          echo(e);
         }
-        $("msg").focus();
+        finally {
+          $('msg').focus();
+        }
       } // init
 
       function send()
       {
         try {
-          var msg = $("msg").value;
+          var msg = $('msg').value;
           if (msg.length == 0) {
-            echo('Message cannot be empty!');
-            return;
+            throw "Message cannot be empty!";
           }
-          $("msg").value = "";
-          $("msg").focus();
+          $('msg').value = "";
+          $('msg').focus();
           socket.send(msg);
         }
         catch (e) {
-          log(e);
+          echo(e);
         }
       } // send
 
