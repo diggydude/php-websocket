@@ -21,7 +21,7 @@
       $this->listening = false;
       $this->running   = false;
       $this->lastError = "";
-      $descriptor      = "tcp://" .$this->address . ":" . $this->port;
+      $descriptor      = "tcp://" . $this->address . ":" . $this->port;
       if (($this->socket = @stream_socket_server($descriptor, $errNum, $errMsg)) === false) {
         $this->lastError = $errMsg;
         return;
@@ -42,8 +42,7 @@
     {
       echo "Starting server...\n";
       if (!$this->isListening()) {
-        echo "The listening socket wasn't initialized:\n";
-        echo $this->lastError();
+        echo "The listening socket wasn't initialized: " . $this->getLastError() . "\n";
         return false;
       }
       $this->running = true;
