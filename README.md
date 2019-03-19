@@ -16,4 +16,4 @@ echo $data;
 
 `FileServer` and `Downloader` extend `TcpServer` and `TcpClient`, respectively, to demonstrate a simple file download system. This system works with both text and binary files. Start `file_server.php` in one console window, then run `download.php` in another console window like so:
 
-`php download.php ice_cream.php`
+`php download.php ice_cream.png`
