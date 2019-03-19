@@ -50,6 +50,9 @@
         $this->sendChunk($socket);
         return;
       }
+      if (is_resource($this->transfers[(int) $socket])) {
+        fclose($this->transfers[(int) $socket]);
+      }
       $this->send($socket, '<Error>');
       $this->disconnect($socket);
     } // onReceive
@@ -78,6 +81,7 @@
     protected function finishDownload($socket)
     {
       $this->send($socket, '<Transfer Complete>');
+      fclose($this->transfers[(int) $socket]);
       unset($this->transfers[(int) $socket]);
     } // finishDownload
 
