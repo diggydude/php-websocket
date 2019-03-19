@@ -19,6 +19,11 @@
 
     public function download($filename)
     {
+      $path = $this->downloadDir . '/' . $filename;
+      if (file_exists($path)) {
+        echo $path . " already exists.\n";
+        return false;
+      }
       $this->send('GET ' . $filename);
       while (($response = $this->receive()) === false);
       if ($response == '<File Not Found>') {
@@ -27,7 +32,7 @@
         return false;
       }
       if ($response == '<Continue>') {
-        $this->handle = fopen($this->downloadDir . '/' . $filename, 'a');
+        $this->handle = fopen($path, 'a');
         while (true) {
           $this->send('<Ready>');
           while (($response = $this->receive()) === false);
