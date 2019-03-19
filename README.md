@@ -12,6 +12,6 @@ The TcpClient class may be extended or used as-is. TcpClient::receive() should b
 while (($data = $client->receive()) === false);
 echo $data;
 
-FileServer and Downloader extend TcpServer and TcpClient, respectively, to demonstrate a simple file download system. This system works with both text and binary files. Start file_server.php in one console window, then run download.php like so:
+FileServer and Downloader extend TcpServer and TcpClient, respectively, to demonstrate a simple file download system. This system works with both text and binary files. Start file_server.php in one console window, then run download.php in another console window like so:
 
 php download.php ice_cream.php
